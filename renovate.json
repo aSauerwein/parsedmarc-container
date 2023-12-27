@@ -1,0 +1,12 @@
+{
+    "enabledManagers": [
+      "pip_requirements"
+    ],
+    "extends": [
+      "config:recommended",
+      "default:automergeMajor",
+      "default:pinDigestsDisabled",
+      "default:skipStatusChecks"
+    ],
+    "ignoreDeps": ["python"]
+  }
