@@ -1,6 +1,13 @@
-FROM python:3.11
+FROM python:3.11-alpine as builder
 LABEL org.opencontainers.image.authors="andreas@sauerwein.se"
-RUN apt-get update && apt-get install -y libxslt-dev libz-dev libxml2-dev gcc libemail-outlook-message-perl
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    libffi-dev 
 COPY requirements.txt requirements.txt 
-RUN pip install -r requirements.txt
+RUN pip install --user -r requirements.txt
+
+FROM python:3.11-alpine as main
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
 ENTRYPOINT [ "parsedmarc" ]
