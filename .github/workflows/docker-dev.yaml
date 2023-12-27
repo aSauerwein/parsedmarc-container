@@ -3,10 +3,9 @@ name: Docker
 on:
   push:
     branches:
-      - 'main'
       - 'dev'
 jobs:
-  build:
+  build-dev:
     runs-on: ubuntu-latest
     steps:
       # Get the repository's code
@@ -36,9 +35,7 @@ jobs:
             asauerwein/parsedmarc
           # Docker tags based on the following events/attributes
           tags: |
-            type=semver,pattern={{version}},value=${{ steps.getversion.outputs.version }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ steps.getversion.outputs.version }}
-            type=semver,pattern={{major}},value=${{ steps.getversion.outputs.version }}
+            type=raw,value=dev-latest
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
