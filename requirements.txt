@@ -1,1 +1,1 @@
-parsedmarc==8.13.0
+parsedmarc==8.14.0
